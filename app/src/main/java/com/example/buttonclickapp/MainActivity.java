@@ -1,7 +1,7 @@
 package com.example.buttonclickapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText editText;
     private TextView textView;
     private int counter = 0;
+    private final String TEXTVIEW_CONTENT = "textViewContent";
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,5 +43,17 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         button.setOnClickListener(counterOnClickListener);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(TEXTVIEW_CONTENT, textView.getText().toString());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        textView.setText(savedInstanceState.getString(TEXTVIEW_CONTENT));
     }
 }
